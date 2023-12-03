@@ -1,0 +1,26 @@
+#!/usr/bin/sh
+
+digits() {
+  echo "$1" | grep --extended-regexp --only-matching "([[:digit:]])"
+}
+
+first_digit() {
+  digits "$1" | head --lines 1
+}
+
+last_digit() {
+  digits "$1" | tail --line 1
+}
+
+calibration_value() {
+  first=$(first_digit "$1")
+  last=$(last_digit "$1")
+  echo "$first$last"
+}
+
+sum=0
+for line in $(cat "$1")
+do
+  sum=$((sum + $(calibration_value "$line")))
+done
+echo "$sum"

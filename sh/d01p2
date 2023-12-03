@@ -1,0 +1,66 @@
+#!/usr/bin/sh
+
+to_digit() {
+  read -r line
+  case $line in
+    1 | one | eno)
+    echo 1
+    ;;
+    2 | two | owt)
+    echo 2
+    ;;
+    3 | three | eerht)
+    echo 3
+    ;;
+    4 | four | ruof)
+    echo 4
+    ;;
+    5 | five | evif)
+    echo 5
+    ;;
+    6 | six | xis)
+    echo 6
+    ;;
+    7 | seven | neves)
+    echo 7
+    ;;
+    8 | eight | thgie)
+    echo 8
+    ;;
+    9 | nine | enin)
+    echo 9
+    ;;
+    0 | zero | orez)
+    echo 0
+    ;;
+  esac
+}
+
+digits() {
+  echo "$1" | grep --extended-regexp --only-matching "([[:digit:]]|one|two|three|four|five|six|seven|eight|nine|zero)" | to_digit
+}
+
+rev_digits() {
+  echo "$1" | rev | grep --extended-regexp --only-matching "([[:digit:]]|eno|owt|eerht|ruof|evif|xis|neves|thgie|enin|orez)" | to_digit
+}
+
+first_digit() {
+  digits "$1" | head --lines 1
+}
+
+last_digit() {
+  rev_digits "$1" | head --line 1
+}
+
+calibration_value() {
+  first=$(first_digit "$1")
+  last=$(last_digit "$1")
+  echo "$first$last"
+}
+
+sum=0
+for line in $(cat "$1")
+do
+  sum=$((sum + $(calibration_value "$line")))
+done
+echo "$sum"
