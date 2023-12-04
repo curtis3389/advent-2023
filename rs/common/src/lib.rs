@@ -6,6 +6,7 @@ use std::io::BufRead;
 use std::path::Path;
 use std::str::FromStr;
 
+/// This is from here: https://doc.rust-lang.org/stable/rust-by-example/std_misc/file/read_lines.html
 pub fn read_lines<P: AsRef<Path>>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>> {
     let file = File::open(filename)?;
     Ok(io::BufReader::new(file).lines())
