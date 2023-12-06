@@ -1,8 +1,13 @@
+// Copyright (c) Curtis Hollibaugh. All rights reserved.
+
 namespace Advent2023.Common.Tests;
 
+/// <summary>
+/// Represents tests for the Almanac type.
+/// </summary>
 public class AlmanacTests
 {
-    private static readonly string exampleInput = @"seeds: 79 14 55 13
+    private static readonly string ExampleInput = @"seeds: 79 14 55 13
 seed-to-soil map:
 50 98 2
 52 50 48
@@ -35,11 +40,14 @@ humidity-to-location map:
 60 56 37
 56 93 4";
 
+    /// <summary>
+    /// Verifies that almanac parses the example data correctly.
+    /// </summary>
     [Fact]
     public void ParsesExample()
     {
-        var expectedSeeds = new List<long>{79, 14, 55, 13};
-        var almanac = new Almanac(exampleInput.Split('\n'));
+        var expectedSeeds = new List<long> { 79, 14, 55, 13 };
+        var almanac = new Almanac(ExampleInput.Split('\n'));
 
         Assert.All(expectedSeeds, seed => Assert.Contains(seed, almanac.Seeds));
         Assert.All(almanac.Seeds, seed => Assert.Contains(seed, expectedSeeds));
@@ -47,10 +55,13 @@ humidity-to-location map:
         Assert.Equal(35, almanac.LowestInitialLocation());
     }
 
+    /// <summary>
+    /// Verifies that almanac calculates the example for part 2 correctly.
+    /// </summary>
     [Fact]
     public void CalculatesPart2Example()
     {
-        var almanac = new Almanac(exampleInput.Split('\n'));
+        var almanac = new Almanac(ExampleInput.Split('\n'));
         Assert.Equal(46, almanac.CorrectLowestLocation());
     }
 }

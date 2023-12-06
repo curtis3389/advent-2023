@@ -1,7 +1,15 @@
+// Copyright (c) Curtis Hollibaugh. All rights reserved.
+
 namespace Advent2023.Common.Tests;
 
+/// <summary>
+/// Represents tests for function in the Util type.
+/// </summary>
 public class UtilTests
 {
+    /// <summary>
+    /// Verifies that ParseCalibrationValue correctly parses the examples.
+    /// </summary>
     [Fact]
     public void ParsesExamples()
     {
@@ -10,7 +18,10 @@ public class UtilTests
         Assert.Equal(15, Util.ParseCalibrationValue("a1b2c3d4e5f"));
         Assert.Equal(77, Util.ParseCalibrationValue("treb7uchet"));
     }
-    
+
+    /// <summary>
+    /// Verifies that BetterParseCalibrationValue correctly parses the examples.
+    /// </summary>
     [Fact]
     public void BetterParsesExamples()
     {
@@ -19,7 +30,10 @@ public class UtilTests
         Assert.Equal(15, Util.BetterParseCalibrationValue("a1b2c3d4e5f"));
         Assert.Equal(77, Util.BetterParseCalibrationValue("treb7uchet"));
     }
-    
+
+    /// <summary>
+    /// Verifies that BetterParseCalibrationValue correctly parses the second set of examples.
+    /// </summary>
     [Fact]
     public void BetterParsesSecondExamples()
     {
@@ -32,6 +46,9 @@ public class UtilTests
         Assert.Equal(76, Util.BetterParseCalibrationValue("7pqrstsixteen"));
     }
 
+    /// <summary>
+    /// Verifies that BetterParseCalibrationValue correctly parses the critical edge case.
+    /// </summary>
     [Fact]
     public void BetterParsesEdgeCase()
     {

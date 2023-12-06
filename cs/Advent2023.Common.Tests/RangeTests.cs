@@ -1,12 +1,15 @@
+// Copyright (c) Curtis Hollibaugh. All rights reserved.
+
 namespace Advent2023.Common.Tests;
 
-using Range = Advent2023.Common.Range;
-
+/// <summary>
+/// Represents tests for the Range type.
+/// </summary>
 public class RangeTests
 {
-    private static readonly string exampleLine = "50 98 2";
-    private static readonly string exampleLine2 = "52 50 48";
-
+    /// <summary>
+    /// Verifies that ranges compare to themselves correctly.
+    /// </summary>
     [Fact]
     public void ComparesToSelf()
     {
@@ -17,6 +20,9 @@ public class RangeTests
         Assert.Equal(range, comparison.Overlap);
     }
 
+    /// <summary>
+    /// Verifies that ranges compare to overlapping ranges correctly.
+    /// </summary>
     [Fact]
     public void ComparesToOverlapping()
     {
@@ -35,6 +41,9 @@ public class RangeTests
         Assert.Equal(new Range(10, 5), comparison.Before);
     }
 
+    /// <summary>
+    /// Verifies that ranges compare to ranges they contain correctly (and vise versa).
+    /// </summary>
     [Fact]
     public void ComparesToContained()
     {

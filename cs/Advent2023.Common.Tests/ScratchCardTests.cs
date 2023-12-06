@@ -1,8 +1,13 @@
+// Copyright (c) Curtis Hollibaugh. All rights reserved.
+
 namespace Advent2023.Common.Tests;
 
+/// <summary>
+/// Represents tests for the ScratchCard type.
+/// </summary>
 public class ScratchCardTests
 {
-    private static readonly IList<string> exampleData = new List<string>
+    private static readonly IList<string> ExampleData = new List<string>
     {
         "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53",
         "Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19",
@@ -12,10 +17,13 @@ public class ScratchCardTests
         "Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11",
     };
 
+    /// <summary>
+    /// Verifies that scratch card parses the examples correctly.
+    /// </summary>
     [Fact]
     public void ParsesExample()
     {
-        var scratchCards = exampleData.Select(line => new ScratchCard(line)).ToList();
+        var scratchCards = ExampleData.Select(line => new ScratchCard(line)).ToList();
 
         Assert.Equal(8, scratchCards[0].Points);
         Assert.Equal(2, scratchCards[1].Points);
@@ -26,10 +34,13 @@ public class ScratchCardTests
         Assert.Equal(13, scratchCards.Select(card => card.Points).Sum());
     }
 
+    /// <summary>
+    /// Verifies that scratch card calculates the example winning total correctly.
+    /// </summary>
     [Fact]
     public void CalculatesWinningTotal()
     {
-        var scratchCards = exampleData.Select(line => new ScratchCard(line)).ToList();
+        var scratchCards = ExampleData.Select(line => new ScratchCard(line)).ToList();
 
         Assert.Equal(30, ScratchCard.WinningTotal(scratchCards));
     }
