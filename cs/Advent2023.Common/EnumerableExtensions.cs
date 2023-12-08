@@ -31,4 +31,21 @@ public static class EnumerableExtensions
         .Select((item, index) => (item, index))
         .GroupBy(t => t.index / 2)
         .Select(group => (group.First().item, group.Last().item));
+
+    /// <summary>
+    /// Repeats the given enumerable forever.
+    /// </summary>
+    /// <param name="source">The enumerable to loop forever.</param>
+    /// <typeparam name="T">The type of the item in the enumerable.</typeparam>
+    /// <returns>A new enumerable.</returns>
+    public static IEnumerable<T> RepeatIndefinitely<T>(this IEnumerable<T> source)
+    {
+        while (true)
+        {
+            foreach (var item in source)
+            {
+                yield return item;
+            }
+        }
+    }
 }
