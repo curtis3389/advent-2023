@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent2023.Day09.Part1", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent2023.Day09.Part2", "Advent2023.Day09.Part2\Advent2023.Day09.Part2.csproj", "{28FFFC33-9225-4005-9DC4-97BF6A15CF01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent2023.Day10.Part1", "Advent2023.Day10.Part1\Advent2023.Day10.Part1.csproj", "{0D3A0F89-5599-4E78-A3EA-BCCFECCFA61D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent2023.Day10.Part2", "Advent2023.Day10.Part2\Advent2023.Day10.Part2.csproj", "{4A461ECB-2878-4990-B8F5-1690DA5468F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,5 +136,13 @@ Global
 		{28FFFC33-9225-4005-9DC4-97BF6A15CF01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28FFFC33-9225-4005-9DC4-97BF6A15CF01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28FFFC33-9225-4005-9DC4-97BF6A15CF01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D3A0F89-5599-4E78-A3EA-BCCFECCFA61D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3A0F89-5599-4E78-A3EA-BCCFECCFA61D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3A0F89-5599-4E78-A3EA-BCCFECCFA61D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3A0F89-5599-4E78-A3EA-BCCFECCFA61D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A461ECB-2878-4990-B8F5-1690DA5468F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A461ECB-2878-4990-B8F5-1690DA5468F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A461ECB-2878-4990-B8F5-1690DA5468F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A461ECB-2878-4990-B8F5-1690DA5468F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
