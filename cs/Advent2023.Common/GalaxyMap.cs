@@ -52,6 +52,22 @@ public class GalaxyMap
     }
 
     /// <summary>
+    /// Gets the lengths of the shortest paths between galaxies.
+    /// </summary>
+    /// <returns>The lengths of the shortest paths between galaxies.</returns>
+    public IList<int> GetShortestPathLengths2()
+    {
+        var galaxyLocations = GetGalaxyLocations(this.Map);
+        var pairs = galaxyLocations.SelectMany(a => galaxyLocations.Select(b => (A: a, B: b)));
+        var distinctPairs = pairs
+            .Distinct(new LambdaEqualityComparer<(Vec2 A, Vec2 B)>(PairsEqual, PairsEqualHash))
+            .ToList();
+        var emptyRows = EmptyRows(this.Map);
+        var emptyColumns = EmptyColumns(this.Map);
+        return distinctPairs.Select(pair => this.GetDistance2(pair.A, pair.B, emptyRows, emptyColumns)).ToList();
+    }
+
+    /// <summary>
     /// Gets the locations of the galaxies in the given map data.
     /// </summary>
     /// <param name="map">The map data to get the locations from.</param>
@@ -88,19 +104,8 @@ public class GalaxyMap
     private static IList<IList<LocationContents>> ExpandMap(IList<IList<LocationContents>> map)
     {
         var newMap = map.Select(row => (IList<LocationContents>)new List<LocationContents>(row)).ToList();
-        var emptyRows = newMap
-            .Select((row, rowIndex) => (row, rowIndex))
-            .Where(t => t.row.All(content => content == LocationContents.Empty))
-            .Select(t => t.rowIndex)
-            .OrderDescending()
-            .ToList();
-        var emptyColumns = newMap
-            .SelectMany(row => row.Select((contents, columnIndex) => (contents, columnIndex)))
-            .GroupBy(a => a.columnIndex)
-            .Where(group => group.All(pair => pair.contents == LocationContents.Empty))
-            .Select(group => group.Key)
-            .OrderDescending()
-            .ToList();
+        var emptyRows = EmptyRows(newMap);
+        var emptyColumns = EmptyColumns(newMap);
         emptyRows.ForEach(rowIndex =>
             newMap.Insert(rowIndex, new List<LocationContents>(newMap[rowIndex])));
         emptyColumns.ForEach(columnIndex =>
@@ -108,6 +113,21 @@ public class GalaxyMap
                 row.Insert(columnIndex, LocationContents.Empty)));
         return newMap;
     }
+
+    private static IList<int> EmptyRows(IList<IList<LocationContents>> map) => map
+        .Select((row, rowIndex) => (row, rowIndex))
+        .Where(t => t.row.All(content => content == LocationContents.Empty))
+        .Select(t => t.rowIndex)
+        .OrderDescending()
+        .ToList();
+
+    private static IList<int> EmptyColumns(IList<IList<LocationContents>> map) => map
+        .SelectMany(row => row.Select((contents, columnIndex) => (contents, columnIndex)))
+        .GroupBy(a => a.columnIndex)
+        .Where(group => group.All(pair => pair.contents == LocationContents.Empty))
+        .Select(group => group.Key)
+        .OrderDescending()
+        .ToList();
 
     /// <summary>
     /// Gets the distance between the given locations.
@@ -148,5 +168,51 @@ public class GalaxyMap
             return hashA < hashB ? -1 : hashA == hashB ? 0 : 1;
         });
         return HashCode.Combine(sorted[0], sorted[1]);
+    }
+
+    /// <summary>
+    /// Returns the lesser of the given values.
+    /// </summary>
+    /// <param name="a">The first value.</param>
+    /// <param name="b">The second value.</param>
+    /// <typeparam name="T">The type of the values.</typeparam>
+    /// <returns>The lesser of the given values.</returns>
+    private static T Lesser<T>(T a, T b)
+        where T : IComparable<T>
+        => a.CompareTo(b) < 0 ? a : b;
+
+    /// <summary>
+    /// Returns the greater of the given values.
+    /// </summary>
+    /// <param name="a">The first value.</param>
+    /// <param name="b">The second value.</param>
+    /// <typeparam name="T">The type of the values.</typeparam>
+    /// <returns>The greater of the given values.</returns>
+    private static T Greater<T>(T a, T b)
+        where T : IComparable<T>
+        => a.CompareTo(b) > 0 ? a : b;
+
+    /// <summary>
+    /// Gets the distance between the given locations.
+    /// </summary>
+    /// <details>
+    /// This treats empty rows/columns as 1,000,000.
+    /// </details>
+    /// <param name="a">The first location.</param>
+    /// <param name="b">The second location.</param>
+    /// <param name="emptyRows">The empty rows on the map.</param>
+    /// <param name="emptyColumns">The empty columns on the map.</param>
+    /// <returns>The distance between the locations.</returns>
+    private int GetDistance2(Vec2 a, Vec2 b, IList<int> emptyRows, IList<int> emptyColumns)
+    {
+        var lowerX = Lesser(a.X, b.X);
+        var upperX = Greater(a.X, b.X);
+        var lowerY = Lesser(a.Y, b.Y);
+        var upperY = Greater(a.Y, b.Y);
+        var rowsCrossed = emptyRows.Count(r => r > lowerX && r < upperX);
+        var columnsCrossed = emptyColumns.Count(r => r > lowerY && r < upperY);
+        var x = (upperX - lowerX) + (rowsCrossed * 999999);
+        var y = (upperY - lowerY) + (columnsCrossed * 999999);
+        return x + y;
     }
 }

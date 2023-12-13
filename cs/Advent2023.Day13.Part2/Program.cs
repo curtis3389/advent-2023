@@ -1,12 +1,12 @@
 // Copyright (c) Curtis Hollibaugh. All rights reserved.
 
-namespace Advent2023.Day11.Part2;
+namespace Advent2023.Day13.Part2;
 
 using System;
 using Advent2023.Common;
 
 /// <summary>
-/// Represents the program to solve part 2 of day 11 of Advent of Code 2023.
+/// Represents the program to solve part 2 of day 13 of Advent of Code 2023.
 /// </summary>
 public class Program
 {
@@ -16,7 +16,6 @@ public class Program
     /// <param name="args">The command-line arguments to use.</param>
     public static void Main(string[] args)
     {
-        var map = new GalaxyMap(File.ReadAllLines(args[0]));
-        Console.WriteLine(map.GetShortestPathLengths2().Select(i => (long)i).Sum());
+        Console.WriteLine("Hello, World!");
     }
 }
