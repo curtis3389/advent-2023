@@ -13,6 +13,7 @@ Each language's solutions are organized into their own directory:
 - C# - `./cs/`
 - Powershell - `./ps/`
 - Python - `./py/`
+- Ruby - `./rb/`
 - Rust - `./rs/`
 - Bash - `./sh/`
 
@@ -27,6 +28,5 @@ Ideas for other languages to do:
 - Java - `./java/`
 - JavaScript - `./js/`
 - Lua - `./lua/`
-- Ruby - `./rb/`
 - Scheme - `./ss/`
 - SQL - `./sql/`
